@@ -78,6 +78,29 @@ if ($act == 'User Login') {
             header("Location: index.php?page=daftar-karyawan");
         }
         exit;
+    } elseif ($act == 'Transfer Gaji') {
+        //proses penggajian
+        $kary_id = isset($_GET['kary_id']) ? $_GET['kary_id'] : '';
+        $jam_lembur = isset($_GET['jam_lembur']) ? $_GET['jam_lembur'] : '';
+        $uang_lembur = isset($_GET['uang_lembur']) ? $_GET['uang_lembur'] : '';
+        $kode_gaji = AturKode("tb_gaji", "kode_gaji", "GJ"); //kode urut gaji
+        $bulan_transfer = date("F Y"); //bulan transfer
+        $tgl_transfer = date("d/m/Y"); //tanggal transfer
+        $jam_transfer = date("H:i:s"); //jam transfer
+        $salah = array();
+
+        //ambil data karyawan
+        $karyawan = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
+        $total_gaji = $uang_lembur + $karyawan['gaji_utama']; //total gaji
+
+        if (empty($jam_lembur)) {
+            $salah[] = 'Harap mengisi total jam lembur karyawan';
+        }
+
+        if(!count($salah))
+        {
+            mysqli_query("INSERT INTO tb_gaji VALUES")
+        }
     }
 }
 ?>
