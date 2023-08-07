@@ -14,6 +14,7 @@ $act = isset($_POST['act']) ? $_POST['act'] : '';
 // Mengambil nilai dari variabel POST 'page' atau menggunakan string kosong jika tidak ada
 $page = isset($_POST['page']) ? $_POST['page'] : '';
 
+
 // Mendefinisikan konstanta 'WEB' dengan nilai 'Program Penggajian'
 define('WEB', 'Program Penggajian');
 

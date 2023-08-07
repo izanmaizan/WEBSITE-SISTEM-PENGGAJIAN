@@ -19,7 +19,7 @@ include "fungsi.php";
     //jika user sudah login
     if ($user_id) {
         //ambil data user dari database
-        $userdata = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_user WHERE user_id = '{$user_id}'"));
+        $userdata = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_user WHERE user_id = '{$user_id}'"));
 
         echo "<div class=\"wrap\">\n";
         echo "  <div class=\"header\">\n";
@@ -47,75 +47,75 @@ include "fungsi.php";
         echo "                  <li><a href=\"index.php?page=data-gajian\">Data Gajian</a></li>\n";
         echo "                  <li><a href=\"index.php?page=logout\">Logout</a></li>\n";
         echo "              </ul>\n";
-        echo "           </div>\n";
+        echo "          </div>\n";
         echo "      </div>\n";
         echo "      <div class=\"p-right\">\n";
 
         if ($page == 'daftar-karyawan') {
-            echo "  <div class=\"box\">\n";
-            echo "      <h1>Daftar Karyawan</h1>\n";
-            echo "      <p>Berikut daftar karyawan yang terdapat didatabase</p>\n";
-            echo "      <table border=\"0\">\n";
-            echo "      <tr class=\"head\">\n";
-            echo "          <td width=\"30\" align=\"center\">No</td>\n";
-            echo "          <td width=\"150\">Nama</td>\n";
-            echo "          <td width=\"180\">Alamat</td>\n";
-            echo "          <td width=\"90\">Gaji Utama</td>\n";
-            echo "          <td width=\"30\" align=\"center\">Gol.</td>\n";
-            echo "          <td width=\"80\" align=\"center\">Aksi</td>\n";
-            echo "      </tr>\n";
+            echo "      <div class=\"box\">\n";
+            echo "          <h1>Daftar Karyawan</h1>\n";
+            echo "          <p>Berikut daftar karyawan yang terdapat didatabase</p>\n";
+            echo "          <table border=\"0\">\n";
+            echo "          <tr class=\"head\">\n";
+            echo "              <td width=\"30\" align=\"center\">No</td>\n";
+            echo "              <td width=\"150\">Nama</td>\n";
+            echo "              <td width=\"180\">Alamat</td>\n";
+            echo "              <td width=\"90\">Gaji Utama</td>\n";
+            echo "              <td width=\"30\" align=\"center\">Gol.</td>\n";
+            echo "              <td width=\"80\" align=\"center\">Aksi</td>\n";
+            echo "          </tr>\n";
 
-            $sql_karyawan = mysqli_query("SELECT * FROM tb_karyawan");
+            $sql_karyawan = mysqli_query($koneksi, "SELECT * FROM tb_karyawan");
             if (mysqli_num_rows($sql_karyawan) == 0) {
                 echo "      <tr class=\"no-data\">
-                                    <td colspan=\"6\">Maaf, belum ada data karyawan saat ini</td>\n";
+                                <td colspan=\"6\">Maaf, belum ada data karyawan saat ini</td>\n";
             } else {
                 $no = 1;
                 while ($row_karyawan = mysqli_fetch_array($sql_karyawan)) {
                     echo "  <tr class=\"data\">\n";
                     echo "      <td align=\"center\">{$no}</td>\n";
                     echo "      <td><a href=\"" . URL . "/index.php?page=transfer-gaji&kary_id = {$row_karyawan['kary_id']}\"title=\"Transfer Gaji &rarr; {$row_karyawan['nama_kar']}\">{$row_karyawan['nama_kar']}</a></td>\n";
-                    echo "      <td>{$row_karyawan['alamat_kar']}>/td>\n";
+                    echo "      <td>{$row_karyawan['alamat_kar']}</td>\n";
                     echo "      <td>Rp. " . Rupiah($row_karyawan['gaji_utama']) . "</td>\n";
-                    echo "      <td align\"center\">{$row_karyawan['gol_kar']}</td>\n";
+                    echo "      <td align=\"center\">{$row_karyawan['gol_kar']}</td>\n";
                     echo "      <td align=\"center\">\n";
-                    echo "          <a href=\"" . URL . "/index.php?page=transfer-gaji&kary_id={$row_karyawan['kary_id']}\"title=\"Transfer Gaji &rarr; {$row_karyawan['nama_kary']}\"><img src=\"" . URL . "/images/s_okay.png\"></a> &nbsp;\n";
+                    echo "          <a href=\"" . URL . "/index.php?page=transfer-gaji&kary_id={$row_karyawan['kary_id']}\" title=\"Transfer Gaji &rarr; {$row_karyawan['nama_kar']}\">{$row_karyawan['nama_kar']}</a></td>\n";
                     echo "          <a href=\"" . URL . "/index.php?page=edit-karyawan&kary_id={$row_karyawan['kary_id']}\"title=\"Ubah Karyawan &rarr; {$row_karyawan['nama_kary']}\"><img src=\"" . URL . "/images/b_edit.png\"></a> &nbsp;\n";
                     echo "          <a href=\"" . URL . "/index.php?page=delete-karyawan&kary_id={$row_karyawan['kary_id']}\"title=\"Hapus Karyawan &rarr; {$row_karyawan['nama_kary']}\"><img src=\"" . URL . "/images/drop.png\"></a> &nbsp;\n";
-                    echo "      </tr>\n";
+                    echo "  </tr>\n";
                     $no++;
                 }
             }
             echo "  </table>\n";
             echo "  <p>Gunakan tombol Edit dan Delete untuk manipulasi data lebih lanjut.</p>\n";
-            echo "      </div>\n";
+            echo "</div>\n";
         } elseif ($page == 'tambah-karyawan') {
-            echo "  <div class\"box\">\n";
+            echo "  <div class=\"box\">\n";
             echo "      <h1>Tambah Data karyawan</h1>\n";
             if (isset($_SESSION['tambah-kar']['gagal'])) {
                 echo "      <div class=\"salah\">" . $_SESSION['tambah-kar']['gagal'] . "</div>\n";
                 unset($_SESSION['tambah-kar']['gagal']);
             }
 
-            echo "              <form method=\"post\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
+            echo "              <form method=\"POST\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
             echo "Kode Karyawan:<br><input type=\"text\" name=\"kode_kar\" value=\"" . AturKode("tb_karyawan", "kode_kar", "KR") . "\" disabled=\"disabled\"></br>\n";
-            echo "Nama Karyawan:<br><input type=\"text\" name=\"nama_kar\" placeholder=\"Isi nama karyawan...\", id=\"nama_kar\" autofocus><br>\n";
-            echo "Alamat Karyawan:<br><input type=\"text\" name=\"alamat_kar\" placeholder=\"Isi alamat karyawan...\", id=\"alamat_kar\"<br>\n";
-            echo "Nomor Rekening:<br><input type=\"text\" name=\"no_rek\" placeholder=\"Isi nomor rekening karyawan...\", id=\"no_rek\"<br>\n";
-            echo "Gaji Utama Karyawan:<br><input type=\"text\" name=\"gaji_utama\" placeholder=\"Isi Gaji utama karyawan...\", id=\"gaji_utama\"<br>\n";
-            echo "Golongan:<br><input type=\"text\" name=\"gol_kar\" placeholder=\"Isi Golongan karyawan...\", id=\"gol_kar\"<br>\n";
+            echo "Nama Karyawan:<br><input type=\"text\" name=\"nama_kar\" placeholder=\"Isi nama karyawan...\" id=\"nama_kar\" autofocus><br>\n";
+            echo "Alamat Karyawan:<br><input type=\"text\" name=\"alamat_kar\" placeholder=\"Isi alamat karyawan...\" id=\"alamat_kar\"<br>\n";
+            echo "Nomor Rekening:<br><input type=\"text\" name=\"no_rek\" placeholder=\"Isi nomor rekening karyawan...\" id=\"no_rek\"<br>\n";
+            echo "Gaji Utama Karyawan:<br><input type=\"text\" name=\"gaji_utama\" placeholder=\"Isi Gaji utama karyawan...\" id=\"gaji_utama\"<br>\n";
+            echo "Golongan:<br><input type=\"text\" name=\"gol_kar\" placeholder=\"Isi Golongan karyawan...\" id=\"gol_kar\"<br>\n";
             echo "              <input type=\"submit\" name=\"act\" value=\"Simpan Karyawan\">\n";
             echo "              </form>\n";
             echo "   </div>\n";
         } elseif ($page == 'edit_karyawan') {
-            $editkar = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
+            $editkar = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
             echo "      <div class=\"box\">\n";
             echo "          <h1>Edit Data Karyawan</h1>\n";
             if (isset($_SESSION['edit-kar']['gagal'])) {
                 echo "      <div class=\"salah\">" . $_SESSION['edit-kar']['gagal'] . "</div>\n";
                 unset($_SESSION['edit-kar']['gagal']);
             }
-            echo "              <form method=\"post\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
+            echo "              <form method=\"POST\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
             echo "Kode Karyawan:<br><input type=\"text\" name=\"kode_kar\" value=\"{$editkar['kode_kar']}\"disabled=\"disabled\"><br>\n";
             echo "Nama Karyawan:<br><input type=\"text\" name=\"nama_kar\" value=\"{$editkar['nama_kar']}\" placeholder=\"Isi nama karyawan...\" id=\"nama_kar\" autofocus><br>\n";
             echo "Alamat Karyawan:<br><input type=\"text\" name=\"alamat_kar\" value=\"{$editkar['alamat_kar']}\" placeholder=\"Isi alamat karyawan...\" id=\"alamat_kar\"><br>\n";
@@ -127,7 +127,7 @@ include "fungsi.php";
             echo "      </div>\n";
         } elseif ($page == 'transfer-gaji') {
             if ($kary_id) {
-                $transfer = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan WHERE kary_id='{$kary_id}'"));
+                $transfer = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE kary_id='{$kary_id}'"));
                 echo "          <div class=\"box\">\n";
                 echo "              <h1>Transfer Gaji</h1>\n";
                 echo "              <p>Harap hati-hati dalam melakukan penginputan data transfer gaji karyawan</p>\n";
@@ -142,19 +142,19 @@ include "fungsi.php";
                 echo "              <td>Nama Karyawan</td>\n";
                 echo "              <td><b>: &nbsp;{$transfer['nama_kar']}</b></td>\n";
                 echo "              <td>Bulan Penggajian</td>\n";
-                echo "              <td><b>: " . date("FY") . "</td>\n";
+                echo "              <td><b>: " . date("FY") . "</b></td>\n";
                 echo "          </tr>\n";
                 echo "          <tr class=\"data\">\n";
                 echo "              <td>Alamat Karyawan</td>\n";
                 echo "              <td><b>: &nbsp;{$transfer['alamat_kar']}</b></td>\n";
                 echo "              <td>Tanggal Transfer</td>\n";
-                echo "              <td><b>: " . date("d/m/Y") . "</td>\n";
+                echo "              <td><b>: " . date("d/m/Y") . "</b></td>\n";
                 echo "          </tr>\n";
                 echo "          <tr class=\"data\">\n";
                 echo "              <td>Gaji Utama</td>\n";
-                echo "              <td><b>: &nbsp; Rp." . Rupiah($transfer['gaji_utama']) . "</b></td>\n";
+                echo "              <td><b>: &nbsp;Rp." . Rupiah($transfer['gaji_utama']) . "</b></td>\n";
                 echo "              <td>Jam Transfer</td>\n";
-                echo "              <td><b>: " . date("H:i:s") . "</td>\n";
+                echo "              <td><b>: " . date("H:i:s") . "</b></td>\n";
                 echo "          </tr>\n";
                 echo "          <tr class=\"data\">\n";
                 echo "              <td>Golongan Karyawan</td>\n";
@@ -179,21 +179,22 @@ include "fungsi.php";
                     unset($_SESSION['gaji']['gagal']);
                 }
 
-                echo "      <form method=\"post\" action=\"\" autocomplete=\"off\" class=\"form\" name=\"transfers\">\n";
+                echo "      <form method=\"POST\" action=\"\" autocomplete=\"off\" class=\"form\" name=\"transfers\">\n";
                 echo "          <input type=\"text\" name=\"jam_lembur\" placeholder=\"Isi Total Jam Lembur\" onkeyup=\"hitung_gaji()\" onkeydown=\"hitung_gaji()\" onchange=\"hitung_gaji()\">&nbsp; \n";
-                echo "          <input type=\"text\" name=\"gaji_utama\" value=\"{$transfer['gaji_utama']}\" style=\"display:none;\">\n";
-                echo "          <input type=\"text\" name=\"kode_gaji\" value=\"" . AturKode("tb_gaji", "kode_gaji", "GJ") . "\" style=\"display:none;\">\n";
+                echo "          <input type=\"hidden\" name=\"gaji_utama\" value=\"{$transfer['gaji_utama']}\">\n";
+                echo "          <input type=\"hidden\" name=\"kode_gaji\" value=\"" . AturKode("tb_gaji", "kode_gaji", "GJ") . "\">\n";
                 echo "          <input type=\"text\" name=\"uang_lembur\" placeholder=\"Uang Lembur\"><br>\n";
                 echo "          <input type=\"submit\" name=\"act\" value=\"Transfer Gaji\">\n";
                 echo "          </form>\n";
-                echo "      </div>\n";
+                echo "  </div>\n"; // Tutup div box untuk Transfer Gaji
+                echo "</div>\n"; // Tutup div wrap
             }
         } elseif ($page == 'data-transfer-gaji') {
-            if ($kar_id) {
-                echo "  <div class=\"box\"\n";
+            if ($kary_id) {
+                echo "  <div class=\"box\">\n";
                 echo "      <h1>Data Transfer Gaji</h1>\n";
                 echo "      <p>Berikut ini adalah detail proses transfer gaji bulanan untuk karyawan:</p>\n";
-                $transfer_gaji = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan k, tb_gaji g WHERE k.kary_id=g.kary_id AND k.kary_id='{kary_id}'"));
+                $transfer_gaji = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_karyawan k, tb_gaji g WHERE k.kary_id=g.kary_id AND k.kary_id='{$kary_id}'"));
                 echo "      <table border=\"0\">\n";
                 echo "          <tr class=\"data\">\n";
                 echo "              <td width=\"180\">Kode Karyawan</td>\n";
@@ -256,13 +257,13 @@ include "fungsi.php";
                 echo "              <td>&nbsp;</td>\n";
                 echo "          </tr>\n";
                 echo "      </table>\n";
-                echo "      <p><a href=\"index.php?page=daftar-karyawan\">Klik untuk transfer gaji karyawan</a></p>\n";
+                echo "      <p><a href=\"index.php?page=daftar-karyawan\">Klik untuk kembali ke daftar karyawan</a></p>\n";
                 echo "  </div>\n";
             }
         } elseif ($page == 'data-gajian') {
             echo "  <div class=\"box\">\n";
             echo "      <h1>Data Gajian Karyawan</h1>\n";
-            echo "      <p>Berikut data gajian karyawan untuk bulan penggajian: <b>" . data("F Y") . "</b></p>\n";
+            echo "      <p>Berikut data gajian karyawan untuk bulan penggajian: <b>" . date("F Y") . "</b></p>\n";
             echo "      <table border=\"0\">\n";
             echo "          <tr class=\"head\">\n";
             echo "              <td width=\"25\" align=\"center\">No</td>\n";
@@ -274,7 +275,7 @@ include "fungsi.php";
             echo "              <td width=\"60\" align=\"center\">Jam</td>\n";
             echo "          </tr>\n";
             $bulan_transfer = date("F Y"); //bulan transfer
-            $data_gajian = mysqli_query("SELECT * FROM tb_karyawan k,tb_gaji g WHERE k.kar_id = g.kary_id g.bulan_transfer = '{$bulan_transfer}'");
+            $data_gajian = mysqli_query($koneksi, "SELECT * FROM tb_karyawan k, tb_gaji g WHERE k.kary_id = g.kary_id AND g.bulan_transfer = '{$bulan_transfer}'");
             if (mysqli_num_rows($data_gajian) == 0) {
                 echo "      <tr class=\"no-data\"><td colspan=\"7\">Maaf, belum ada data transfer gajian saat ini</td></tr>\n";
             } else {
@@ -298,7 +299,7 @@ include "fungsi.php";
         } elseif ($page == 'cari-karyawan') {
             echo "      <div class=\"box\">\n";
             echo "          <h1>Pencarian Data Karyawan</h1>\n";
-            echo "          <form method=\"post\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
+            echo "          <form method=\"POST\" action=\"\" autocomplete=\"off\" class=\"form\">\n";
             echo "              <input type=\"text\" name=\"kata\" id=\"kata\" placeholder=\"Ketik kata kunci pencarian berdasarkan nama, kode, dan golongan...\" autofocus><br>\n";
             echo "              <input type=\"submit\" name=\"act\" value=\"Cari Data\">\n";
             echo "          </form>\n";
@@ -306,7 +307,7 @@ include "fungsi.php";
             if ($act == 'Cari Data') {
                 $kata = isset($_POST['kata']) ? $_POST['kata'] : '';
                 $katas = ($kata == "") ? "Kata Kunci Pencarian Tidak Disebutkan" : $kata;
-                $cari = mysqli_query("SELECT * FROM tb_karyawan WHERE nama_kar LIKE '%$kata%' OR kode_kar LIKE '%$kata%' OR gol_kar LIKE '%$kata%'");
+                $cari = mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE nama_kar LIKE '%$kata%' OR kode_kar LIKE '%$kata%' OR gol_kar LIKE '%$kata%'");
                 echo "      <div class=\"box\">\n";
                 echo "          <h1>Daftar Hasil Pencarian Karyawan</h1>\n";
                 echo "          <p>Kata Kunci: <b>{$katas}</b> | Jumlah Data: <b>" . mysqli_num_rows($cari) . "</b>Data</p>\n";
@@ -362,16 +363,16 @@ include "fungsi.php";
         echo "      </div>\n";
         echo "  </div>\n";
     } else {
-        //user sama sekali belum login, tampilan form login 
-        echo "<div class=\"login-box\"\n";
-        echo "  <div class=\"login-logo\"\n";
+        // user sama sekali belum login, tampilan form login 
+        echo "<div class=\"login-box\">\n";
+        echo "  <div class=\"login-logo\">\n";
         echo "  </div>\n";
         echo "  <div class=\"form-login\">\n";
         echo "      <div class=\"login-info\">Silahkan login dengan mengisi username dan password</div>\n";
-        echo "      <form method=\"post\" action=\"\" name=\"login\" autocomplete=\"off\">\n";
-        echo "      <input type=\"text\" name=\"username\" placeholder=\"Ketik Username..\" id=\"username\" autofocus><br>\n";
-        echo "      <input type=\"text\" name=\"password\" placeholder=\"Ketik Password..\" id=\"password\"><br>\n";
-        echo "      <input type=\"submit\" name=\"act\" value=\"User Login\" onclick=\"cek_login();\">\n";
+        echo "      <form method=\"POST\" action=\"\" name=\"login\" autocomplete=\"off\">\n";
+        echo "          <input type=\"text\" name=\"username\" placeholder=\"Ketik Username..\" id=\"username\" autofocus><br>\n";
+        echo "          <input type=\"password\" name=\"password\" placeholder=\"Ketik Password..\" id=\"password\"><br>";
+        echo "          <input type=\"submit\" name=\"act\" value=\"User Login\" onclick=\"cek_login();\">\n";
         echo "      </form>\n";
         if (isset($_SESSION['login']['gagal'])) {
             echo "  <div class=\"copy\">All Rights Reserved | Copyright &copy; - " . date("Y") . " | Program penggajian by: Maizan Insani Akbar</div>\n";
