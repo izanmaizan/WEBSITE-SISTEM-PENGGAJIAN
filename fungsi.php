@@ -100,9 +100,11 @@ if ($act == 'User Login') {
         if (!count($salah)) {
             mysqli_query("INSERT INTO tb_gaji VALUES('', '{$kary_id}', '{$kode_gaji}', '{$jam_lembur}', '{$uang_lembur}', '{$total_gaji}', '{$bulan_transfer}', '{$tgl_transfer}', '{$jam_transfer}')");
         }
-        if(count($salah))
-        {
-            $_SESSION
+        if (count($salah)) {
+            $_SESSION['gaji']['gagal'] = implode('<br>', $salah);
+        }
+        if (count($salah)) {
+            header("Location: index.php?page=transfer-gaji&kary_id=$kary_id");
         }
     }
 }
