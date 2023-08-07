@@ -173,3 +173,260 @@ input[type="submit"], input[type="reset"]
     padding: 10px 0 10px 40px;
 }
 
+.logo-form form input[type="text"]
+{
+    background: url('../WEBSITE-SISTEM-PENGGAJIAN/images/icon-1.jpg') no-repeat 2%;
+}
+.logo-form form input[type="password"]
+{
+    background: url('../WEBSITE-SISTEM-PENGGAJIAN/images/icon-2.jpg') no-repeat 2%;
+}
+
+.eror-login
+{
+    margin: 0;
+    padding: 13px 20px;
+    background: -moz-linear-gradient(top, #ffffff 3%, #f5f5f5 3%, #ebebeb 100%);
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff0000;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 0 0 10px 10px;
+    text-shadow: 0px 1px 0px #fff;
+}
+
+.copy
+{
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0px 1px 0px #fff;
+    margin: 15px 0 0 0;
+}
+
+.wrap
+{
+    margin: 20px auto;
+    width: 900px!important;
+    text-align: justify;
+}
+
+.header
+{
+    height: 100px;
+    border-bottom: 1px solid #ccdcec;
+    box-shadow: 0px 1px 0px #f5f9fd;
+}
+
+.h-left
+{
+    float: left;
+    width: 400px!important;
+}
+
+.h-right
+{
+    float: right;
+    width: 500px !important;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.u-foto
+{
+    float: left;
+    width: 70px !important;
+}
+
+.u-foto img
+{
+    border-radius: 6px;
+}
+
+.u-text
+{
+    float: right;
+    width: 250px!important;
+}
+
+.u-name
+{
+    font-size: 20px;
+    font-weight: normal;
+    padding: 0 0 5px 0;
+}
+
+.u-link
+{
+    padding: 0 0 10px 0;
+}
+
+.page
+{
+    margin: 20px 0;
+    padding: 0;
+}
+
+.p-left
+{
+    float: left;
+    width: 230px;
+}
+
+.p-right
+{
+    float: right;
+    width: 650px !important;
+}
+
+.box
+{
+    margin: 0 30px 20px 3px;
+    border: 1px solid #b8afaf;
+    background: #ffffff;
+    box-shadow: 0px 0px 0px 4px #ccd4db;
+    border-radius: 5px;
+}
+
+.box h1
+{
+    margin: 0;
+    padding: 10px 10px;
+    border-bottom: 1px solid #c0c0c0;
+    background: -moz-linear-gradient(top, #ffffff 3%, #f5f5f5 3%, #ebebeb 100%);
+    font-size: 16px;
+    border-radius: 10px 10px 0 0;
+    text-shadow: 0px 1px 0px #fff;
+    color: #000;
+}
+
+.box .nav li a
+{
+    display: block;
+    padding: 9px 0 9px 30px;
+    font-weight: bold;
+    font-size: 12px;
+    border-bottom: 1px solid #c0c0c0;
+    background: url(../WEBSITE-SISTEM-PENGGAJIAN/images/b_minus.png) no-repeat 5% 15px;
+    transition: all .25s ease-in-out;
+}
+
+.box .nav li a:hover
+{
+    padding: 9px 0 9px 40px;
+}
+
+.box .nav li:last-child a
+{
+    border-bottom: none;
+}
+
+.box .form
+{
+    margin: 0;
+    padding: 10px 20px;
+}
+
+.box .form input[type="text"], .box .form input[type="submit"]
+{
+    margin: 7px 0 15px 4px;
+}
+
+.box .form input#nama_kar, .box .form input#alamat_kar, .box .form input#no_rek
+{
+    width: 50%;
+}
+
+.salah
+{
+    margin: 0;
+    padding: 13px 20px;
+    background: -moz-linear-gradient(top, #ffffff 3%, #f5f5f5 3%, #ebebeb 100%);
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff0000;
+    border-bottom: 1px solid #c0c0c0;
+    text-shadow: 0px 1px 0px #fff;
+}
+
+.footer
+{
+    margin: 30px 0;
+    padding: 10px 20px;
+    text-align: center;
+    border: 1px solid #b8afaf;
+    background: #ffffff;
+    box-shadow: 0px 0px 0px 3px #dfdbdb;
+    border-radius: 5px;
+}
+
+.fitur
+{
+    padding: 0;
+    margin: 10px 0;
+}
+
+.fitur li
+{
+    line-height: 20px;
+    font-weight: bold;
+    padding: 10px 10px 10px 30px;
+    transition: all .25s ease-in-out;
+    color: #417a03;
+    border-bottom: 1px solid #4590da;
+    border-left: 13px solid #72b8fd;
+    position: relative;
+}
+
+.fitur li:nth-child(odd)
+{
+    background: #fbfbfb;
+}
+
+.fitur li:nth-child(even)
+{
+    background: #eef6fe;
+}
+
+.fitur li::after
+{
+    content: '';
+    position: absolute;
+    top: 31%;
+    left: 0%;
+    width: 0;
+    height: 0;
+    border-left: 9px solid #72b8fd;
+    border-bottom: 9px solid transparent;
+}
+
+.fitur li:first-child
+{
+    border-top: 1px solid #a1cefb;
+}
+
+.fitur li:hover
+{
+    color: #000;
+    padding: 10px 10px 10px 40px;
+    cursor: move;
+    border-left: 20px solid #4590da;
+    background: #eeeeee;
+}
+
+.fitur li:hover::after
+{
+    content: '';
+    position: absolute;
+    top: 31%;
+    left: 0%;
+    width: 0;
+    height: 0;
+    border-left: 9px solid #4590da;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+}
