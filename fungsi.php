@@ -97,9 +97,12 @@ if ($act == 'User Login') {
             $salah[] = 'Harap mengisi total jam lembur karyawan';
         }
 
-        if(!count($salah))
+        if (!count($salah)) {
+            mysqli_query("INSERT INTO tb_gaji VALUES('', '{$kary_id}', '{$kode_gaji}', '{$jam_lembur}', '{$uang_lembur}', '{$total_gaji}', '{$bulan_transfer}', '{$tgl_transfer}', '{$jam_transfer}')");
+        }
+        if(count($salah))
         {
-            mysqli_query("INSERT INTO tb_gaji VALUES")
+            $_SESSION
         }
     }
 }
