@@ -1,5 +1,5 @@
 <?php
-include "kone.php";
+include "koneksi.php";
 
 if ($act == 'User Login') {
     //cek login user
@@ -10,7 +10,7 @@ if ($act == 'User Login') {
         $salah[] = 'Harap mengisi username dan password.';
     }
     if (!count($salah)) {
-        $data = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_user WHERE username ='{$username}' AND password ='" . md5($password) . "'"));
+        $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_user WHERE username ='{$username}' AND password ='" . md5($password) . "'"));
         if ($data) {
             $_SESSION['user_id'] = $data['user_id'];
         } else {
@@ -39,8 +39,8 @@ if ($act == 'User Login') {
             $salah[] = 'Harap mengisi seluruh data karyawan yang diperlukan.';
         }
         if (!count($salah)) {
-            if (mysqli_num_rows(mysqli_query("SELECT * FROM tb_karyawan WHERE kode_kar='{$kode}'")) == 0) {
-                mysqli_query("INSERT INTO tb_karyawan VALUES('', '{$kode}', '{$nama_kar}', '{$alamat_kar}', '{$no_rek}', '{$gaji_utama}', '{$gol_kar}')");
+            if (mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE kode_kar='{$kode}'")) == 0) {
+                mysqli_query($koneksi, "INSERT INTO tb_karyawan VALUES('', '{$kode}', '{$nama_kar}', '{$alamat_kar}', '{$no_rek}', '{$gaji_utama}', '{$gol_kar}')");
             } else {
                 $salah[] = 'Kode karyawan ini sudah ada sebelumnya.';
             }
@@ -53,7 +53,7 @@ if ($act == 'User Login') {
         exit;
     } elseif ($act == 'Edit Karyawan') {
         $kar_id = isset($_GET['kary_id']) ? $_GET['kary_id'] : '';
-        $kary = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
+        $kary = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
         $nama_kar = isset($_POST['$nama_kar']) ? $_POST['nama_kar'] : '';
         $alamat_kar = isset($_POST['$alamat_kar']) ? $_POST['alamat_kar'] : '';
         $gol_kar = isset($_POST['$gol_kar']) ? $_POST['gol_kar'] : '';
@@ -67,7 +67,7 @@ if ($act == 'User Login') {
         $gol_kar = ($kary['gol_kar'] == "") ? $kary['gol_kar'] : $gol_kar;
 
         if (!count($salah)) {
-            mysqli_query("UPDATE tb_karyawan SET nama_kar = '{$nama_kar}', no_rek = '{$no_rek}',  alamat_kar = '{$alamat_kar}',  gaji_utama = '{$gaji_utama}', gol_kar = '{$gol_kar}' WHERE kary_id = '{$kary_id}'");
+            mysqli_query($koneksi, "UPDATE tb_karyawan SET nama_kar = '{$nama_kar}', no_rek = '{$no_rek}', alamat_kar = '{$alamat_kar}', gaji_utama = '{$gaji_utama}', gol_kar = '{$gol_kar}' WHERE kary_id = '{$kary_id}'");
         }
         if (count($salah)) {
             $_SESSION['edit-kar']['gagal'] = implode('<br>', $salah);
@@ -90,7 +90,7 @@ if ($act == 'User Login') {
         $salah = array();
 
         //ambil data karyawan
-        $karyawan = mysqli_fetch_array(mysqli_query("SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
+        $karyawan = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM tb_karyawan WHERE kary_id = '{$kary_id}'"));
         $total_gaji = $uang_lembur + $karyawan['gaji_utama']; //total gaji
 
         if (empty($jam_lembur)) {
@@ -98,7 +98,7 @@ if ($act == 'User Login') {
         }
 
         if (!count($salah)) {
-            mysqli_query("INSERT INTO tb_gaji VALUES('', '{$kary_id}', '{$kode_gaji}', '{$jam_lembur}', '{$uang_lembur}', '{$total_gaji}', '{$bulan_transfer}', '{$tgl_transfer}', '{$jam_transfer}')");
+            mysqli_query($koneksi, "INSERT INTO tb_gaji VALUES('', '{$kary_id}', '{$kode_gaji}', '{$jam_lembur}', '{$uang_lembur}', '{$total_gaji}', '{$bulan_transfer}', '{$tgl_transfer}', '{$jam_transfer}')");
         }
         if (count($salah)) {
             $_SESSION['gaji']['gagal'] = implode('<br>', $salah);
@@ -111,7 +111,7 @@ if ($act == 'User Login') {
         exit;
     } elseif ($page == 'delete-karyawan') {
         $kary_id = isset($_GET['kary_id']) ? $_GET['kary_id'] : '';
-        mysqli_query("DELETE FROM tb_karyawan WHERE kary_id = '{$kary_id}'");
+        mysqli_query($koneksi, "DELETE FROM tb_karyawan WHERE kary_id = '{$kary_id}'");
         header("Location: index.php?page=daftar-karyawan");
         exit;
     }
