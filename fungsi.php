@@ -105,7 +105,15 @@ if ($act == 'User Login') {
         }
         if (count($salah)) {
             header("Location: index.php?page=transfer-gaji&kary_id=$kary_id");
+        } else {
+            header("Location: index.php?page=data-transfer-gaji&kary_id=$kary_id");
         }
+        exit;
+    } elseif ($page == 'delete-karyawan') {
+        $kary_id = isset($_GET['kary_id']) ? $_GET['kary_id'] : '';
+        mysqli_query("DELETE FROM tb_karyawan WHERE kary_id = '{$kary_id}'");
+        header("Location: index.php?page=daftar-karyawan");
+        exit;
     }
 }
 ?>
