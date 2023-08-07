@@ -1,5 +1,175 @@
 /* CSS Document */
 *
 {
-    
+    margin: 0;
+    padding: 0;
+    outline: none;
 }
+
+body
+{
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #6f6f6f;
+    background: #ebeff3;
+}
+
+a
+{
+    color: #0099ff;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: #ff0000;
+    text-decoration: none;
+}
+
+p
+{
+    margin: 0;
+    padding: 10px;
+    line-height: 18px;
+}
+
+table
+{
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+}
+
+td
+{
+    padding: 0 10px;
+    border-bottom: 1px solid #dddddd;
+}
+
+tr:nth-child(odd)
+{
+    background: #ffffff;
+}
+
+tr:nth-child(even)
+{
+    background: #f4f4f4;
+}
+
+tr.head
+{
+    height: 40px;
+    font-weight: bold;
+    color: #000;
+    background: -moz-linear-gradient(top, #e5f1ff 3%, #bddbfd 3%, #90c3fc 100%);
+    border-top: 1px solid #89c7ea;
+    border-bottom: 1px solid #64b0db;
+    text-shadow: 0px 1px 0px #def1fb;
+}
+
+tr.data
+{
+    height: 35px;
+    color: #000;
+}
+
+tr.no-data
+{
+    height: 40px;
+    font-weight: bold;
+    color: #ff0000;
+    text-align: center;
+}
+
+ol, ul
+{
+    list-style-type: none;
+}
+
+input[type="text"], input[type="password"]
+{
+    margin: 0;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 4px #efefef;
+    border: 1px solid #c6c6c6;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type="text"]:focus, input[type="password"]:focus
+{
+    box-shadow: 0px 0px 0px 4px #d6e8fc;
+    border: 1px solid #a5c6eb;
+}
+
+input[type="submit"], input[type="reset"]
+{
+    margin: 0;
+    padding: 6px 20px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 4px #cfe4fb;
+    border: 1px solid #6ea8eb;
+    font-size: 16px;
+    font-family: 'calibri';
+    cursor: pointer;
+    background: -moz-linear-gradient(top, #e5f1ff 3%, #bddbfd 3%, #90c3fc 100%);
+    color: #1a6bc7;
+    text-shadow: 0px 1px 0px #cde2fa;
+    text-transform: uppercase;
+}
+
+.login-box
+{
+    margin: auto;
+    top: 5%;
+    left: 0;
+    bottom: 25%;
+    right: 0;
+    position: absolute;
+    width: 400px !important;
+}
+
+.login-logo
+{
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.login-form
+{
+    margin: auto;
+    border: 1px solid #80ade0;
+    background: #ffffff;
+    box-shadow: 0px 0px 0px 5px #c1dcf9;
+    border-radius: 10px;
+}
+
+.login-info
+{
+    margin: 0;
+    padding: 15px 20px;
+    border-bottom: 1px solid #c0c0c0;
+    background: -moz-linear-gradient(top, #ffffff 3%, #f5f5f5 3%, #ebebeb 100%);
+    font-size: 14px;
+    text-align: center;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    text-shadow: 0px 1px 0px #fff;
+    color: #000;
+}
+
+.logo-form form
+{
+    margin: 0;
+    padding: 20px;
+}
+
+.logo-form form input[type="text"], .logo-form form input[type="password"]
+{
+    width: 88%;
+    margin: 0 0 20px 0;
+    padding: 10px 0 10px 40px;
+}
+
